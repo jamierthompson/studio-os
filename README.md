@@ -2,7 +2,7 @@
 
 **An AI-native operating system for a solo interior design practice.**
 
-StudioOS is a suite of interconnected AI tools designed to augment a one-person design studio — handling the knowledge retrieval, client communication, project management, and visual generation that would normally require a full team. Each project is a standalone service that works independently but connects via REST APIs to form a cohesive workflow.
+StudioOS is a suite of interconnected AI systems designed to augment a one-person design studio — handling knowledge retrieval, client onboarding, and project management that would normally require a full team. Each project is a standalone service that communicates over HTTP/REST.
 
 ## The Vision
 
@@ -15,18 +15,12 @@ StudioOS solves this by building AI-powered tools that capture, organize, and su
 ```
 ┌──────────────────────────────────────────────────────────┐
 │                       StudioOS                           │
+│                     (Dashboard)                          │
 │                                                          │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐  │
-│  │  DesignRAG   │    │  ClientHub  │    │  MoodBoard  │  │
-│  │  (Knowledge) │◄──►│  (Comms)    │◄──►│  (Visual)   │  │
-│  └──────┬───────┘    └──────┬──────┘    └─────────────┘  │
-│         │                   │                             │
-│         └─────────┬─────────┘                             │
-│                   ▼                                       │
-│          ┌─────────────────┐                              │
-│          │   ProjectPilot  │                              │
-│          │  (Orchestrator) │                              │
-│          └─────────────────┘                              │
+│  ┌─────────────┐  ┌──────────────┐  ┌────────────────┐  │
+│  │  DesignRAG   │  │  ClientBot   │  │  ProjectPilot  │  │
+│  │  (Knowledge) │  │  (Intake)    │  │  (Management)  │  │
+│  └──────────────┘  └──────────────┘  └────────────────┘  │
 └──────────────────────────────────────────────────────────┘
 ```
 
@@ -34,36 +28,36 @@ All services communicate over **HTTP/REST**, making each project independently d
 
 ## Projects
 
-### 1. [DesignRAG](https://github.com/jamierthompson/design-rag) — Knowledge Layer
+### 1. [DesignRAG](https://github.com/jamierthompson/design-rag) — Knowledge Base
 **Status:** In progress
 
-RAG system over institutional design knowledge. Upload design documents (PDFs, Markdown), then ask questions and get cited answers grounded in your source material.
+A RAG system over institutional design knowledge. Documents are chunked, embedded, and made queryable through a FastAPI API with cited answers.
 
-- **Stack:** FastAPI, ChromaDB, OpenAI embeddings, LangChain text splitting
-- **Key feature:** Source citations on every answer — know exactly where information came from
+- **Stack:** FastAPI, ChromaDB, OpenAI, LangChain text splitting
 
-### 2. ClientHub — Client Communication
+### 2. ClientBot — Intake & Onboarding Agent
 **Status:** Planned
 
-AI-assisted client communication tool. Draft proposals, summarize meeting notes, and maintain a searchable history of client interactions and decisions.
+A conversational agent that handles the pre-contract client pipeline — from initial inquiry through signed agreement. Conducts intake interviews, generates scoped proposals, and drafts design agreements.
 
-### 3. MoodBoard — Visual Generation
+### 3. ProjectPilot — Design Project Manager
 **Status:** Planned
 
-AI-powered mood board and concept visualization. Generate design concepts, material palettes, and spatial layouts from text descriptions and reference images.
+A multi-agent system that manages active design projects. Specialized sub-agents handle meeting prep, note-taking, vendor RFQ generation, and timeline tracking.
 
-### 4. ProjectPilot — Orchestrator
+### 4. StudioOS — Business Dashboard
 **Status:** Planned
 
-Project management layer that ties everything together. Track project timelines, coordinate between services, and provide a unified dashboard for the design practice.
+The integration layer that ties everything together into a unified web interface — client pipeline views, project dashboards, knowledge search, and document management.
 
 ## How Projects Connect
 
-Each project is a standalone FastAPI service with its own database and API. ProjectPilot acts as the orchestration layer, calling into the other services as needed:
+Each backend project is a standalone FastAPI service with its own data store and API. StudioOS (the dashboard) acts as the integration layer:
 
-- **DesignRAG** provides knowledge retrieval — when a client asks about material options, ProjectPilot queries DesignRAG for relevant specs and past project decisions
-- **ClientHub** handles communication context — meeting summaries and client preferences feed into DesignRAG's knowledge base
-- **MoodBoard** generates visuals — concept boards pull material information from DesignRAG and client preferences from ClientHub
+- **DesignRAG** provides knowledge retrieval over design documents
+- **ClientBot** handles the client intake pipeline, pulling from project knowledge for proposal context
+- **ProjectPilot** manages active projects, drawing on knowledge and client data from the other services
+- **StudioOS** surfaces everything through a single interface
 
 ## Tech Stack
 
@@ -77,10 +71,6 @@ Each project is a standalone FastAPI service with its own database and API. Proj
 | Containerization | Docker + Docker Compose |
 | AI/ML | OpenAI API (embeddings + LLM) |
 | Vector Storage | ChromaDB |
-
-## Built in Public
-
-This project is being built openly as a learning exercise and portfolio piece. Each repository has a clean commit history that tells the story of how it was built — from initial scaffold through feature implementation and testing.
 
 ## License
 
