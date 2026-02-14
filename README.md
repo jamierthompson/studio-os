@@ -6,9 +6,9 @@ StudioOS is a suite of interconnected AI systems designed to augment a one-perso
 
 ## The Vision
 
-Interior design firms rely on institutional knowledge: material specs, building codes, vendor catalogs, past project decisions. In a large firm, this knowledge lives across team members. A solo practitioner has to hold it all — or lose it.
+Running a solo design practice means wearing every hat — client intake, proposal writing, vendor coordination, project tracking, knowledge management. The actual design work is only a fraction of the job.
 
-StudioOS solves this by building AI-powered tools that capture, organize, and surface design knowledge on demand. Instead of replacing the designer, these tools handle the cognitive overhead so the designer can focus on what they do best: creating spaces that work for people.
+StudioOS handles the rest. AI agents manage the business operations — onboarding clients, drafting proposals, prepping meetings, generating RFQs, tracking timelines — so the designer can spend their time designing.
 
 ## Architecture
 
